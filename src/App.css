@@ -14,7 +14,7 @@
 }
 
 .container {
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
 }
@@ -22,10 +22,75 @@
 h1 {
   text-align: center;
   color: white;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   font-size: 2rem;
 }
 
+.subtitle {
+  text-align: center;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.back-link:hover {
+  opacity: 1;
+}
+
+/* Tools Grid */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.tool-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.tool-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+
+.tool-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.tool-title {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tool-desc {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.home-footer {
+  text-align: center;
+  margin-top: 3rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Timestamp Tool Styles */
 .current-time {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
@@ -49,7 +114,7 @@ h1 {
   font-family: 'Monaco', 'Menlo', monospace;
 }
 
-.converter {
+.converter, .quick-convert {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   padding: 1.5rem;
@@ -158,10 +223,6 @@ h1 {
 
 .quick-convert {
   margin-top: 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .quick-convert h3 {
@@ -188,4 +249,198 @@ h1 {
 .quick-buttons button:hover {
   background: #667eea;
   color: white;
+}
+
+/* Code Diff Tool Styles */
+.diff-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mode-switch select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-buttons button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.action-buttons button:hover {
+  background: #667eea;
+  color: white;
+}
+
+.action-buttons .clear-btn {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.action-buttons .clear-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+.diff-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.code-input {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.code-header {
+  background: #f0f0f0;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.code-input textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: 1rem;
+  border: none;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  line-height: 1.6;
+}
+
+.code-input textarea:focus {
+  outline: none;
+}
+
+.diff-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.stat.add {
+  background: #d4edda;
+  color: #155724;
+}
+
+.stat.remove {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.stat.equal {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.diff-result {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.diff-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  background: #2d2d2d;
+  color: #888;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+.diff-line {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  border-bottom: 1px solid #333;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.85rem;
+}
+
+.diff-line:last-child {
+  border-bottom: none;
+}
+
+.diff-line.add {
+  background: rgba(40, 167, 69, 0.2);
+}
+
+.diff-line.remove {
+  background: rgba(220, 53, 69, 0.2);
+}
+
+.diff-line.change {
+  background: rgba(255, 193, 7, 0.15);
+}
+
+.line-num {
+  padding: 0.25rem 0.5rem;
+  color: #666;
+  text-align: center;
+  background: #252525;
+}
+
+.line-code {
+  padding: 0.25rem 0.5rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.diff-line.add .line-code {
+  color: #75e387;
+}
+
+.diff-line.remove .line-code {
+  color: #ff6b6b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .diff-inputs {
+    grid-template-columns: 1fr;
+  }
+  
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
 }
