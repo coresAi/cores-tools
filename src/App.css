@@ -347,29 +347,41 @@ h1 {
   color: var(--error);
 }
 
-.result-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+.result-column {
+  padding: 0;
 }
 
-.result-item:last-child {
+.result-column .result-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.result-column .result-item:last-child {
   border-bottom: none;
 }
 
-.result-item span {
+.result-column .result-item span {
+  min-width: 120px;
   font-weight: 500;
-  color: var(--text-secondary);
-  min-width: 140px;
-  font-size: 14px;
+  color: #666;
+  font-size: 13px;
 }
 
-.result-item code {
+.result-column .result-item code {
   flex: 1;
   font-family: 'Consolas', 'SF Mono', Monaco, monospace;
-  font-size: 14px;
+  font-size: 13px;
+  background: transparent;
+  padding: 0;
+}
+
+.result-column .copy-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 .quick-actions {
