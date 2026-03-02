@@ -13,7 +13,7 @@ function UrlEncodeTool() {
       try {
         setOutput(decodeURIComponent(input))
       } catch (e) {
-        setOutput('解码失败: ' + e.message)
+        setOutput('解码失败：' + e.message)
       }
     }
   }
@@ -24,41 +24,54 @@ function UrlEncodeTool() {
     setMode(mode === 'encode' ? 'decode' : 'encode')
   }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(output)
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
   }
 
   return (
     <div className="container">
-      <Link to="/" className="back-link">← 返回首页</Link>
-      <h1>🔗 URL 编解码</h1>
+      <Link to="/" className="back-link">← 返回工具首页</Link>
       
-      <div className="tabs">
-        <button className={mode === 'encode' ? 'active' : ''} onClick={() => { setMode('encode'); }}>编码</button>
-        <button className={mode === 'decode' ? 'active' : ''} onClick={() => { setMode('decode'); }}>解码</button>
-      </div>
-
-      <div className="tool-area">
-        <div className="input-area">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'encode' ? '输入要URL编码的文本...' : '输入URL编码字符串...'}
-            className="code-input"
-          />
-        </div>
-        
-        <div className="action-buttons">
-          <button onClick={process}>{mode === 'encode' ? '编码' : '解码'}</button>
-          <button onClick={swap}>↑↓ 交换</button>
+      <div className="tool-page">
+        <div className="tool-header">
+          <h1>🔗 URL 编解码工具</h1>
         </div>
 
-        <div className="output-area">
-          <div className="output-header">
-            <span>结果</span>
-            {output && <button onClick={copyToClipboard} className="copy-btn">复制</button>}
+        <div className="tool-content">
+          <div className="tabs">
+            <button className={mode === 'encode' ? 'active' : ''} onClick={() => { setMode('encode'); }}>编码</button>
+            <button className={mode === 'decode' ? 'active' : ''} onClick={() => { setMode('decode'); }}>解码</button>
           </div>
-          <pre className="code-output">{output}</pre>
+
+          <div className="two-column">
+            <div className="column-box">
+              <div className="column-header">{mode === 'encode' ? '输入原文' : '输入 URL 编码'}</div>
+              <div className="column-content">
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder={mode === 'encode' ? '输入要 URL 编码的文本...' : '输入 URL 编码字符串...'}
+                />
+              </div>
+            </div>
+
+            <div className="column-box">
+              <div className="column-header">{mode === 'encode' ? '编码结果' : '解码结果'}</div>
+              <div className="column-content">
+                <textarea
+                  value={output}
+                  readOnly
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="action-row" style={{ marginTop: '24px' }}>
+            <button onClick={process}>{mode === 'encode' ? '编码' : '解码'}</button>
+            <button className="secondary" onClick={swap}>↑↓ 交换</button>
+            <button className="secondary" onClick={() => { setInput(''); setOutput(''); }}>清空</button>
+            {output && <button className="secondary" onClick={() => copyToClipboard(output)}>复制结果</button>}
+          </div>
         </div>
       </div>
     </div>

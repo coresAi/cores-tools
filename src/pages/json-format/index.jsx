@@ -16,7 +16,7 @@ function JsonFormatTool() {
       setOutput(JSON.stringify(parsed, null, options.indent))
       setError('')
     } catch (e) {
-      setError('JSON格式错误: ' + e.message)
+      setError('JSON格式错误：' + e.message)
       setOutput('')
     }
   }
@@ -27,7 +27,7 @@ function JsonFormatTool() {
       setOutput(JSON.stringify(parsed))
       setError('')
     } catch (e) {
-      setError('JSON格式错误: ' + e.message)
+      setError('JSON格式错误：' + e.message)
       setOutput('')
     }
   }
@@ -45,51 +45,65 @@ function JsonFormatTool() {
     return obj
   }
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(output)
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
   }
 
   return (
     <div className="container">
-      <Link to="/" className="back-link">← 返回首页</Link>
-      <h1>📄 JSON格式化工具</h1>
+      <Link to="/" className="back-link">← 返回工具首页</Link>
       
-      <div className="options-bar">
-        <label>
-          缩进:
-          <select value={options.indent} onChange={(e) => setOptions({...options, indent: Number(e.target.value)})}>
-            <option value={2}>2空格</option>
-            <option value={4}>4空格</option>
-            <option value={0}>无缩进</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" checked={options.sortKeys} onChange={(e) => setOptions({...options, sortKeys: e.target.checked})} />
-          排序键名
-        </label>
-      </div>
-
-      <div className="tool-area">
-        <div className="input-area">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="粘贴JSON到这里..."
-            className="code-input"
-          />
-        </div>
-        
-        <div className="action-buttons">
-          <button onClick={format}>格式化</button>
-          <button onClick={minify}>压缩</button>
+      <div className="tool-page">
+        <div className="tool-header">
+          <h1>📄 JSON 格式化工具</h1>
         </div>
 
-        <div className="output-area">
-          <div className="output-header">
-            <span>结果</span>
-            {output && <button onClick={copyToClipboard} className="copy-btn">复制</button>}
+        <div className="tool-content">
+          <div className="options-bar">
+            <label>
+              缩进：
+              <select value={options.indent} onChange={(e) => setOptions({...options, indent: Number(e.target.value)})}>
+                <option value={2}>2 空格</option>
+                <option value={4}>4 空格</option>
+                <option value={0}>无缩进</option>
+              </select>
+            </label>
+            <label>
+              <input type="checkbox" checked={options.sortKeys} onChange={(e) => setOptions({...options, sortKeys: e.target.checked})} />
+              排序键名
+            </label>
           </div>
-          <pre className="code-output">{error || output}</pre>
+
+          <div className="two-column">
+            <div className="column-box">
+              <div className="column-header">输入 JSON</div>
+              <div className="column-content">
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="粘贴 JSON 到这里..."
+                />
+              </div>
+            </div>
+
+            <div className="column-box">
+              <div className="column-header">格式化结果</div>
+              <div className="column-content">
+                <textarea
+                  value={error || output}
+                  readOnly
+                  style={error ? { color: '#ef4444' } : {}}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="action-row" style={{ marginTop: '24px' }}>
+            <button onClick={format}>格式化</button>
+            <button onClick={minify}>压缩</button>
+            <button className="secondary" onClick={() => { setInput(''); setOutput(''); setError(''); }}>清空</button>
+            {output && <button className="secondary" onClick={() => copyToClipboard(output)}>复制结果</button>}
+          </div>
         </div>
       </div>
     </div>
