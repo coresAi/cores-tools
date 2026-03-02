@@ -543,10 +543,27 @@ h1 {
   font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
+  height: 42px;
 }
 
 .ts-split-btn:hover {
   background: var(--primary-hover);
+}
+
+.ts-picker-btn {
+  background: #666;
+}
+
+.ts-picker-btn:hover {
+  background: #444;
+}
+
+.ts-datetime-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
 
 .ts-split-result {

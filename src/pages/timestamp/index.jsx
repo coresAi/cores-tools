@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 function TimestampTool() {
@@ -7,12 +7,10 @@ function TimestampTool() {
   // 左侧：时间戳 → 日期
   const [tsInput, setTsInput] = useState('')
   const [tsResult, setTsResult] = useState(null)
-  const [tsDatetime, setTsDatetime] = useState('')
   
   // 右侧：日期 → 时间戳
   const [dateInput, setDateInput] = useState('')
   const [dateResult, setDateResult] = useState(null)
-  const [dateDatetime, setDateDatetime] = useState('')
   
   const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now()))
 
@@ -124,6 +122,16 @@ function TimestampTool() {
     return now.toISOString().slice(0, 16)
   }
 
+  // Refs for datetime inputs
+  const tsDatetimeRef = useRef(null)
+  const dateDatetimeRef = useRef(null)
+
+  const openDatetimePicker = (ref) => {
+    if (ref.current) {
+      ref.current.showPicker?.() || ref.current.focus()
+    }
+  }
+
   return (
     <div className="container">
       <a href="#/" className="back-link">← 返回工具首页</a>
@@ -153,14 +161,14 @@ function TimestampTool() {
                   className="ts-split-input"
                 />
                 <button className="ts-split-btn" onClick={() => setTsInput(String(currentTimestamp))}>当前时间</button>
+                <button className="ts-split-btn ts-picker-btn" onClick={() => openDatetimePicker(tsDatetimeRef)}>选择时间</button>
                 <input
                   type="datetime-local"
-                  value={tsDatetime}
+                  ref={tsDatetimeRef}
                   onChange={(e) => {
-                    setTsDatetime(e.target.value)
                     if (e.target.value) convertFromDatetime(e.target.value)
                   }}
-                  className="ts-datetime-picker"
+                  className="ts-datetime-hidden"
                 />
               </div>
               <div className="ts-split-result">
@@ -209,14 +217,14 @@ function TimestampTool() {
                   className="ts-split-input"
                 />
                 <button className="ts-split-btn" onClick={() => setDateInput(getNowDatetime())}>当前时间</button>
+                <button className="ts-split-btn ts-picker-btn" onClick={() => openDatetimePicker(dateDatetimeRef)}>选择时间</button>
                 <input
                   type="datetime-local"
-                  value={dateDatetime}
+                  ref={dateDatetimeRef}
                   onChange={(e) => {
-                    setDateDatetime(e.target.value)
                     if (e.target.value) convertDateFromDatetime(e.target.value)
                   }}
-                  className="ts-datetime-picker"
+                  className="ts-datetime-hidden"
                 />
               </div>
               <div className="ts-split-result">
